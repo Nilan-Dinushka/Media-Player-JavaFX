@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.MainViewController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep11.MainViewController">
    <bottom>
-      <VBox prefHeight="32.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="32.0" prefWidth="600.0">
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#btnOpenOnAction" text="Open" />
-                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#btnPlayOnAction" text="play" />
-                  <Button fx:id="btnStop" mnemonicParsing="false" onAction="#btnStopOnAction" text="stop" />
-                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#btnPauseOnAction" text="pause" />
-                  <Button fx:id="btnFastFastBackward" mnemonicParsing="false" onAction="#btnFastFastBackwardOnAction" text="&lt;&lt;&lt;" />
-                  <Button fx:id="btnFastBackward" mnemonicParsing="false" onAction="#btnFastBackwardOnAction" text="&lt;&lt;" />
-                  <Button fx:id="btnFastForward" mnemonicParsing="false" onAction="#btnFastForwardOnAction" text="&gt;&gt;" />
-                  <Button fx:id="btnFastFastForward" mnemonicParsing="false" onAction="#btnFastFastForwardOnAction" text="&gt;&gt;&gt;" />
-                  <Button fx:id="btnExit" mnemonicParsing="false" onAction="#btnExitOnAction" text="Exit" />
+                  <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#btnOpenOnAction" prefHeight="24.0" prefWidth="55.0" text="Open" />
+                  <Button fx:id="btnFastFastBackward" mnemonicParsing="false" onAction="#btnFastFastBackwardOnAction" prefHeight="24.0" prefWidth="35.0" text="&lt;&lt;&lt;" />
+                  <Button fx:id="btnFastBackward" mnemonicParsing="false" onAction="#btnFastBackwardOnAction" prefHeight="24.0" prefWidth="20.0" text="&lt;&lt;" />
+                  <Button fx:id="btnStop" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="24.0" prefWidth="41.0" text="stop" />
+                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#btnPlayOnAction" prefHeight="24.0" prefWidth="49.0" text="play" />
+                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#btnPauseOnAction" prefHeight="24.0" prefWidth="37.0" text="pause" />
+                  <Button fx:id="btnFastForward" mnemonicParsing="false" onAction="#btnFastForwardOnAction" prefHeight="24.0" prefWidth="23.0" text="&gt;&gt;" />
+                  <Button fx:id="btnFastFastForward" mnemonicParsing="false" onAction="#btnFastFastForwardOnAction" prefHeight="24.0" prefWidth="32.0" text="&gt;&gt;&gt;" />
+                  <Button fx:id="btnExit" mnemonicParsing="false" onAction="#btnExitOnAction" prefHeight="24.0" prefWidth="36.0" text="Exit" />
+                  <Slider fx:id="sldVolume" />
                </children>
             </HBox>
          </children>
       </VBox>
    </bottom>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <MediaView fx:id="mvPlayer" fitHeight="200.0" fitWidth="200.0" />
          </children>
