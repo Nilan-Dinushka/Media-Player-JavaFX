@@ -4,14 +4,19 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 import javax.naming.Binding;
 import java.io.File;
@@ -29,6 +34,7 @@ public class MainViewController {
     public Button btnExit;
     public MediaView mvPlayer;
     public Slider sldVolume;
+    public Slider sldSeek;
     MediaPlayer mediaPlayer;
 
     public void btnOpenOnAction(ActionEvent actionEvent) {
@@ -51,6 +57,20 @@ public class MainViewController {
                 @Override
                 public void invalidated(Observable observable) {
                     mediaPlayer.setVolume(sldVolume.getValue()/100);
+                }
+            });
+
+            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+                @Override
+                public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
+                    sldSeek.setValue(t1.toSeconds());
+                }
+            });
+
+            sldSeek.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    mediaPlayer.seek(Duration.seconds(sldSeek.getValue()));
                 }
             });
             mediaPlayer.play();
