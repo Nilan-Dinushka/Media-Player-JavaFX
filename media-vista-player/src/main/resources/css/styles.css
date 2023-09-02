@@ -1,0 +1,34 @@
+/*#btnPlay {
+    -fx-background-image: url("../asset/play.png");
+    -fx-background-size: 60 60;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}*/
+
+#btnOpen{
+    -fx-background-image: url("../asset/folder.png");
+    -fx-background-size: 30 30;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnFastForward{
+    -fx-background-image: url("../asset/forwardBtn.png");
+    -fx-background-size: 20 30;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnFastBackward{
+    -fx-background-image: url("../asset/slowerBtn.png");
+    -fx-background-size: 20 30;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnStop{
+    -fx-background-image: url("../asset/stopBtn.png");
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

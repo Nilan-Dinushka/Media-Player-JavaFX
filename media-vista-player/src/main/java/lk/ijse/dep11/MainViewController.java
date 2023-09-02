@@ -10,8 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -26,7 +27,6 @@ public class MainViewController {
     public Button btnOpen;
     public Button btnPlay;
     public Button btnStop;
-    public Button btnPause;
     public Button btnFastFastBackward;
     public Button btnFastBackward;
     public Button btnFastForward;
@@ -35,7 +35,13 @@ public class MainViewController {
     public MediaView mvPlayer;
     public Slider sldVolume;
     public Slider sldSeek;
+    public Button btnVolume;
     MediaPlayer mediaPlayer;
+
+    public void initialize(){
+        btnPlay.setStyle("-fx-background-image: url(asset/playBtn.png); -fx-background-size: 20 30;-fx-background-repeat: no-repeat;-fx-background-position: center;");
+        btnVolume.setStyle("-fx-background-image: url(asset/volumeBtn.png); -fx-background-size: 30 30;-fx-background-repeat: no-repeat;-fx-background-position: center;");
+    }
 
     public void btnOpenOnAction(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -79,7 +85,17 @@ public class MainViewController {
     }
 
     public void btnPlayOnAction(ActionEvent actionEvent) {
-        mediaPlayer.play();
+        BackgroundImage backgroundImage = new BackgroundImage( new Image( getClass().getResource("/asset/playBtn.png").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundImage);
+        btnPlay.setBackground(background);
+        if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+            btnPlay.setStyle("-fx-background-image: url(asset/pauseBtn.png); -fx-background-size: 20 30;-fx-background-repeat: no-repeat;-fx-background-position: center;");
+            mediaPlayer.pause();
+        }else if(mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED){
+            btnPlay.setStyle("-fx-background-image: url(asset/playBtn.png); -fx-background-size: 20 30;-fx-background-repeat: no-repeat;-fx-background-position: center;");
+            mediaPlayer.play();
+        }
+
         mediaPlayer.setRate(1);
     }
 
@@ -87,9 +103,6 @@ public class MainViewController {
         mediaPlayer.stop();
     }
 
-    public void btnPauseOnAction(ActionEvent actionEvent) {
-        mediaPlayer.pause();
-    }
 
     public void btnFastFastBackwardOnAction(ActionEvent actionEvent) {
         mediaPlayer.setRate(.5);
@@ -109,5 +122,15 @@ public class MainViewController {
 
     public void btnExitOnAction(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+    public void btnVolumeOnAction(ActionEvent actionEvent) {
+        if(mediaPlayer.isMute()==false){
+            mediaPlayer.setMute(true);
+            btnVolume.setStyle("-fx-background-image: url(asset/muteBtn.png); -fx-background-size: 30 30;-fx-background-repeat: no-repeat;-fx-background-position: center;");
+        }else{
+            btnVolume.setStyle("-fx-background-image: url(asset/volumeBtn.png); -fx-background-size: 30 30;-fx-background-repeat: no-repeat;-fx-background-position: center;");
+            mediaPlayer.setMute(false);
+        }
     }
 }
