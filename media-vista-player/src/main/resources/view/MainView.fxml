@@ -28,7 +28,7 @@
       </VBox>
    </bottom>
    <center>
-      <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <StackPane fx:id="stpView" maxHeight="-Infinity" maxWidth="-Infinity" onDragDropped="#stpViewOnDragDropped" onDragOver="#stpViewOnDragOver" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <MediaView fx:id="mvPlayer" fitHeight="200.0" fitWidth="200.0" />
             <Slider fx:id="sldSeek" StackPane.alignment="BOTTOM_CENTER" />

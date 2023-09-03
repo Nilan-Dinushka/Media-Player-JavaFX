@@ -11,7 +11,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -21,6 +23,8 @@ import javafx.util.Duration;
 
 import javax.naming.Binding;
 import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
 
 public class MainViewController {
     public BorderPane root;
@@ -36,6 +40,7 @@ public class MainViewController {
     public Slider sldVolume;
     public Slider sldSeek;
     public Button btnVolume;
+    public StackPane stpView;
     MediaPlayer mediaPlayer;
 
     public void initialize(){
@@ -131,6 +136,49 @@ public class MainViewController {
         }else{
             btnVolume.setStyle("-fx-background-image: url(asset/volumeBtn.png); -fx-background-size: 30 30;-fx-background-repeat: no-repeat;-fx-background-position: center;");
             mediaPlayer.setMute(false);
+        }
+    }
+
+    public void stpViewOnDragDropped(DragEvent dragEvent) {
+        List<File> filesList = dragEvent.getDragboard().getFiles();
+            Media media = new Media(filesList.get(0).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mvPlayer.setMediaPlayer(mediaPlayer);
+            DoubleProperty width = mvPlayer.fitWidthProperty();
+            DoubleProperty height = mvPlayer.fitHeightProperty();
+
+            width.bind(Bindings.selectDouble(mvPlayer.sceneProperty(),"width"));
+            height.bind(Bindings.selectDouble(mvPlayer.sceneProperty(),"height"));
+
+            sldVolume.setValue(mediaPlayer.getVolume() * 100);
+
+            sldVolume.valueProperty().addListener(new InvalidationListener() {
+                @Override
+                public void invalidated(Observable observable) {
+                    mediaPlayer.setVolume(sldVolume.getValue()/100);
+                }
+            });
+
+            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+                @Override
+                public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
+                    sldSeek.setValue(t1.toSeconds());
+                }
+            });
+
+            sldSeek.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    mediaPlayer.seek(Duration.seconds(sldSeek.getValue()));
+                }
+            });
+            mediaPlayer.play();
+
+    }
+
+    public void stpViewOnDragOver(DragEvent dragEvent) {
+        if(dragEvent.getDragboard().hasFiles()) {
+            dragEvent.acceptTransferModes(TransferMode.ANY);
         }
     }
 }
